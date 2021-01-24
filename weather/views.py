@@ -11,6 +11,7 @@ def index(request: WSGIRequest) -> HttpResponse:
     return render(request, 'index.html', context)
 
 def search_history(request: WSGIRequest, zip_code: str) -> HttpResponse:
-    context = weather_history(zip_code)
+    page = request.GET.get('page', 1)
+    context = weather_history(zip_code, page)
 
     return render(request, 'search_result.html', context)

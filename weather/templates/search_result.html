@@ -41,4 +41,28 @@
     {% else %}
         <div class="justify-content-center">No search history found.</div>
     {% endif %}
+
+    {% if search_results.has_other_pages %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item{% if not search_results.has_previous %} disabled{% endif %}">
+                    <a class="page-link" href="?page={% if search_results.has_previous %}{{ search_results.previous_page_number }}{% endif %}" aria-label="Previous"{% if not search_results.has_previous %} tabindex="-1" aria-disabled="true"{% endif %}>
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                {% for i in search_results.paginator.page_range %}
+                    <li class="page-item{% if search_results.number == i %} active{% endif %}">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+
+                <li class="page-item{% if not search_results.has_next %} disabled{% endif %}">
+                    <a class="page-link" href="?page={% if search_results.has_next %}{{ search_results.next_page_number }}{% endif %}" aria-label="Previous"{% if not search_results.has_next %} tabindex="-1" aria-disabled="true"{% endif %}>
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    {% endif %}
 {% endblock %}
