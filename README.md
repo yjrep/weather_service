@@ -72,6 +72,8 @@ source env/bin/activate
 Starting the project
 --------------------
 
+**Note** OpenWeather API key was removed from `settings.py`. Please open the file and add the API key to `OPENWEATHER_KEY` on line 31.
+
 To start with a fresh SQLite db, remove `db.sqlite3` file on the project's root folder.
 
 After activating the virtualenv,

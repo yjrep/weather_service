@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-OPENWEATHER_KEY = '974d97f3be2075987e2760a5f2d4d6fc'
+OPENWEATHER_KEY = ''
 
 # Application definition
 
