@@ -1,3 +1,4 @@
 django
+mypy
 pytz
 requests
