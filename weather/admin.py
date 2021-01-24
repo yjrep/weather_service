@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import ZipCode, SearchResult
+from weather.models import ZipCode, SearchResult
 
 
 class ZipCodeAdmin(admin.ModelAdmin):

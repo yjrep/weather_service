@@ -19,3 +19,7 @@
     list-style-type: none;
     color: red;
 }
+
+.error_msg {
+    color: red;
+}

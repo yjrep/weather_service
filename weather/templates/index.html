@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
+{% load tags %}
 
 {% block title %}
-    Weather Lookup
+    {% if not form.is_valid %}
+        Weather Lookup
+    {% else %}
+        Weather for {{ form.zipcode.value }}
+    {% endif %}
 {% endblock %}
 
 {% block css %}
@@ -10,14 +15,35 @@
 {% endblock %}
 
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    <div class="form-row align-items-center mb-4">
-        <div class="col-auto">
-            {{ form }}
-            
-            <input type="submit" class="btn btn-primary mb-3"value="Submit" />
-        </div>
+    <div class="mb-4">
+        Please enter a US zip code to search the weather
     </div>
-</form>
+
+    <div class="col-6">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row align-items-center mb-4">
+                <div class="col-auto">
+                    {{ form }}
+                    
+                    <input type="submit" class="btn btn-primary mb-3"value="Submit" />
+                </div>
+            </div>
+        </form>
+
+        {% if zip_code and not error_msg %}
+            <div class="">City: {{ zip_code.city }}</div>
+            <div class="">Current temp.: {{ result.temperature }}&#8457;</div>
+            <div class="">Feels like: {{ result.feels_like }}&#8457;</div>
+            <div class="">Humidity: {{ result.humidity }}%</div>
+            <div class="">Time: {{ result.added | convert_timezone }}</div>
+            <div class="mt-2">
+                <a class="link" href="{% url 'history' form.zipcode.value %}">History</a>
+            </div>
+        {% endif %}
+
+        {% if error_msg %}
+            <div class="error_msg">{{ error_msg }}</div>
+        {% endif %}
+    </div>
 {% endblock %}

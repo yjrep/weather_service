@@ -1,23 +1,16 @@
-from weather.models import ZipCode
+from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import render
+from django.http.response import HttpResponse
 
-from .forms import SearchForm
+from weather.logic import weather_api_call
 
 
-def index(request):
-    form = SearchForm()
-
-    if request.method == 'POST':
-        form = SearchForm(request.POST)
-    
-
-    context = {
-        'form': form,
-    }
+def index(request: WSGIRequest) -> HttpResponse:
+    context = weather_api_call(request)
 
     return render(request, 'index.html', context)
 
-def search_history(request, zip_code):
+def search_history(request: WSGIRequest, zip_code: str) -> HttpResponse:
     context = {
         'zip_code': zip_code
     }

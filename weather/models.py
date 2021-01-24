@@ -8,7 +8,7 @@ class ZipCode(models.Model):
     lat = models.FloatField(default=None, blank=True, null=True)
     added = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         if self.city:
             return '{} ({})'.format(self.zip_code, self.city)
         return self.zip_code
@@ -22,5 +22,5 @@ class SearchResult(models.Model):
     message = models.CharField(max_length=255, default=None, blank=True, null=True)
     added = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.zip_code.zip_code
