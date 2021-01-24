@@ -1,0 +1,10 @@
+# virtualenv files
+env
+
+# IDE specific files
+.idea
+.vscode
+
+# python compiled files
+*.pyc
+__pycache__
