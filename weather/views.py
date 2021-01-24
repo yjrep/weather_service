@@ -2,7 +2,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import render
 from django.http.response import HttpResponse
 
-from weather.logic import weather_api_call
+from weather.logic import weather_api_call, weather_history
 
 
 def index(request: WSGIRequest) -> HttpResponse:
@@ -11,8 +11,6 @@ def index(request: WSGIRequest) -> HttpResponse:
     return render(request, 'index.html', context)
 
 def search_history(request: WSGIRequest, zip_code: str) -> HttpResponse:
-    context = {
-        'zip_code': zip_code
-    }
+    context = weather_history(zip_code)
 
     return render(request, 'search_result.html', context)

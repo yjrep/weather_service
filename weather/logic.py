@@ -2,6 +2,7 @@ import requests
 
 from django.conf import settings
 from django.core.handlers.wsgi import WSGIRequest
+from django.db.models.query import QuerySet
 from requests.models import Response
 from typing import Optional, Dict, Any, Tuple
 
@@ -70,3 +71,17 @@ def save_zip_code(zip_code: ZipCode, data: Dict[str, Any]) -> None:
         zip_code.save()
     except:
         pass
+
+
+def weather_history(zip_code: str) -> Dict[str, Any]:
+    search_results: Optional[QuerySet] = None
+
+    try:
+        search_results = ZipCode.objects.get(zip_code=zip_code).searchresult_set.all()
+    except ZipCode.DoesNotExist:
+        pass
+
+    return {
+        'zip_code': zip_code,
+        'search_results': search_results
+    }

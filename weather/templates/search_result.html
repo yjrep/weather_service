@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
+{% load tags %}
 
 {% block title %}
-    Weather Lookup History
+    {{ zip_code }} Weather Lookup History
 {% endblock %}
 
 {% block css %}
@@ -10,5 +11,34 @@
 {% endblock %}
 
 {% block content %}
-    <div>{{ zip_code }}</div>
+    <div class="mb-4">
+        Weather lookup history for zip code: {{ zip_code }}
+    </div>
+
+    {% if search_results %}
+        <table class="table table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Temperature</th>
+                    <th scope="col">Feels Like</th>
+                    <th scope="col">Humidity</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for search_result in search_results %}
+                    <tr>
+                        <td class="text-center">{{ search_result.temperature | default:'n/a' }}</td>
+                        <td class="text-center">{{ search_result.feels_like | default:'n/a' }}</td>
+                        <td class="text-center">{{ search_result.humidity | default:'n/a' }}</td>
+                        <td>{{ search_result.message | default:'' }}</td>
+                        <td>{{ search_result.added | convert_timezone }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="justify-content-center">No search history found.</div>
+    {% endif %}
 {% endblock %}
