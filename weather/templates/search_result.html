@@ -1,4 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Weather Lookup History
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+{% endblock %}
 
 {% block content %}
     <div>{{ zip_code }}</div>

@@ -8,3 +8,6 @@ env
 # python compiled files
 *.pyc
 __pycache__
+
+#sqlite files
+*.sqlite3

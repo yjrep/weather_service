@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>{% block title %}Weather{% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    {% block css %}{% endblock %}
 </head>
 
 <body>
+    <header class="navbar navbar-expand navbar-dark flex-column weather-navbar">
+        <div class="navbar-nav-scroll">
+            <ul class="navbar-nav bd-navbar-nav flex-row">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Weather</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="navbar-nav ml-md-auto">
+            <li class="nav-item">
+                By Yungjae Kim
+            </li>
+          </ul>
+    </header>
+    
     <div class="container">
         <div class="row justify-content-center">
             <div id="main-content" class="col-8">
