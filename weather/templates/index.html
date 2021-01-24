@@ -19,31 +19,38 @@
         Please enter a US zip code to search the weather
     </div>
 
-    <div class="col-6">
-        <form method="post">
-            {% csrf_token %}
-            <div class="form-row align-items-center mb-4">
-                <div class="col-auto">
-                    {{ form }}
-                    
-                    <input type="submit" class="btn btn-primary mb-3"value="Submit" />
+    <div class="row">
+        <div class="col-6">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-row align-items-center mb-4">
+                    <div class="col-auto">
+                        {{ form }}
+                        
+                        <input type="submit" class="btn btn-primary mb-3"value="Submit" />
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
 
-        {% if zip_code and not error_msg %}
-            <div class="">City: {{ zip_code.city }}</div>
-            <div class="">Current temp.: {{ result.temperature }}&#8457;</div>
-            <div class="">Feels like: {{ result.feels_like }}&#8457;</div>
-            <div class="">Humidity: {{ result.humidity }}%</div>
-            <div class="">Time: {{ result.added | convert_timezone }}</div>
-            <div class="mt-2">
-                <a class="link" href="{% url 'history' form.zipcode.value %}">History</a>
-            </div>
-        {% endif %}
+            {% if zip_code.id and not error_msg %}
+                <div class="">City: {{ zip_code.city }}</div>
+                <div class="">Current temp.: {{ result.temperature }}&#8457;</div>
+                <div class="">Feels like: {{ result.feels_like }}&#8457;</div>
+                <div class="">Humidity: {{ result.humidity }}%</div>
+                <div class="">Time: {{ result.added | convert_timezone }}</div>
+                <div class="mt-2">
+                    <a class="link" href="{% url 'history' form.zipcode.value %}">History</a>
+                </div>
+            {% endif %}
 
-        {% if error_msg %}
-            <div class="error_msg">{{ error_msg }}</div>
-        {% endif %}
+            {% if error_msg %}
+                <div class="error_msg">{{ error_msg }}</div>
+            {% endif %}
+        </div>
+        <div class="col-6">
+            {% if zip_code.lat and zip_code.lon %}
+                <iframe src="https://maps.google.com/maps?q={{ zip_code.lat }},{{ zip_code.lon }}&z=8&output=embed" width="360" height="270" frameborder="0" style="border:0"></iframe>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}

@@ -30,7 +30,7 @@ def weather_api_call(request: WSGIRequest) -> Dict[str, Any]:
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
-            result, error_msg = save_search_history(request.POST['zipcode'])
+            zip_code, result, error_msg = save_search_history(request.POST['zipcode'])
 
     return {
         'form': form,
@@ -40,14 +40,14 @@ def weather_api_call(request: WSGIRequest) -> Dict[str, Any]:
     }
 
 
-def save_search_history(zipcode: str) -> Tuple[Optional[SearchResult], Optional[str]]:
+def save_search_history(zipcode: str) -> Tuple[ZipCode, Optional[SearchResult], Optional[str]]:
     """Method to save ZipCode and SearchHistory based on success
 
     Args:
         zipcode (str): zip code to get or create
 
     Returns:
-        Tuple[Optional[SearchResult], Optional[str]]: SearchHistory and error message if exists
+        Tuple[ZipCode, Optional[SearchResult], Optional[str]]: ZipCode, SearchHistory and error message if exists
     """
     error_msg: Optional[str] = None
     result: Optional[SearchResult] = None
@@ -79,7 +79,7 @@ def save_search_history(zipcode: str) -> Tuple[Optional[SearchResult], Optional[
     # save record
     result.save()
 
-    return result, error_msg
+    return zip_code, result, error_msg
 
 
 def save_zip_code(zip_code: ZipCode, data: Dict[str, Any]) -> None:
