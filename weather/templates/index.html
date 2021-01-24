@@ -10,5 +10,14 @@
 {% endblock %}
 
 {% block content %}
-    <div>{{ msg }}</div>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-row align-items-center mb-4">
+        <div class="col-auto">
+            {{ form }}
+            
+            <input type="submit" class="btn btn-primary mb-3"value="Submit" />
+        </div>
+    </div>
+</form>
 {% endblock %}

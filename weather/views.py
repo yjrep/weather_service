@@ -1,10 +1,18 @@
 from weather.models import ZipCode
 from django.shortcuts import render
 
+from .forms import SearchForm
+
 
 def index(request):
+    form = SearchForm()
+
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+    
+
     context = {
-        'msg': 'Test message'
+        'form': form,
     }
 
     return render(request, 'index.html', context)
